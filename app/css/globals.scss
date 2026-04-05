@@ -1,0 +1,311 @@
+@use "tailwindcss";
+
+:root {
+  /* Color palette */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a2e;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --accent-blue: #00d4ff;
+  --accent-orange: #ff6b35;
+  --accent-gold: #ffd700;
+  --text-primary: #e4e4e7;
+  --text-secondary: #a1a1aa;
+  --border-color: rgba(255, 255, 255, 0.1);
+
+  /* Typography */
+  --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: 12px;
+}
+
+/* Light theme overrides */
+[data-theme="light"] {
+  --bg-primary: #f5f5f7;
+  --bg-secondary: #e8e8ed;
+  --bg-card: rgba(0, 0, 0, 0.03);
+  --accent-blue: #0099cc;
+  --accent-orange: #e55a2b;
+  --accent-gold: #cc9900;
+  --text-primary: #18181b;
+  --text-secondary: #52525b;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.08);
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* Fix iOS Safari: background-attachment:fixed breaks on webkit scroll */
+@supports (-webkit-touch-callout: none) {
+  body { background-attachment: scroll; }
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Glassmorphism card utility */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+}
+
+/* Gradient mesh background utilities */
+.mesh-gradient-1 {
+  background-image:
+    radial-gradient(at 20% 30%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(at 80% 70%, rgba(255, 107, 53, 0.06) 0%, transparent 50%);
+}
+
+.mesh-gradient-2 {
+  background-image:
+    radial-gradient(at 70% 20%, rgba(255, 215, 0, 0.07) 0%, transparent 50%),
+    radial-gradient(at 30% 80%, rgba(0, 212, 255, 0.05) 0%, transparent 50%);
+}
+
+.mesh-gradient-3 {
+  background-image:
+    radial-gradient(at 50% 50%, rgba(255, 107, 53, 0.08) 0%, transparent 40%),
+    radial-gradient(at 10% 90%, rgba(0, 212, 255, 0.06) 0%, transparent 50%);
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-blue);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-orange);
+}
+
+/* ===================== */
+/* ANIMATED GRADIENT TEXT */
+/* ===================== */
+.gradient-text-animate {
+  background: linear-gradient(
+    90deg,
+    var(--accent-blue),
+    var(--accent-orange),
+    var(--accent-gold),
+    var(--accent-blue)
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 4s linear infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+/* ===================== */
+/* NEON GLOW ON HOVER    */
+/* ===================== */
+.neon-hover {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.neon-hover:hover {
+  box-shadow:
+    0 0 8px var(--accent-blue),
+    0 0 20px rgba(0, 212, 255, 0.25),
+    0 0 40px rgba(0, 212, 255, 0.1);
+  border-color: var(--accent-blue) !important;
+}
+
+/* ===================== */
+/* NEON ROTATING BORDER  */
+/* ===================== */
+.neon-border-spin {
+  position: relative;
+}
+
+.neon-border-spin::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--angle, 0deg),
+    var(--accent-blue),
+    var(--accent-orange),
+    var(--accent-gold),
+    var(--accent-blue)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+  animation: spinAngle 3s linear infinite;
+}
+
+.neon-border-spin:hover::after {
+  opacity: 1;
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spinAngle {
+  to { --angle: 360deg; }
+}
+
+/* ===================== */
+/* PULSE DOT ANIMATION   */
+/* ===================== */
+.pulse-dot {
+  position: relative;
+}
+
+.pulse-dot::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: #22c55e;
+  opacity: 0.4;
+  animation: pulseDot 2s ease-out infinite;
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* ===================== */
+/* SHIMMER LOADING       */
+/* ===================== */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--glass-bg) 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    var(--glass-bg) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmerSlide 1.5s infinite;
+}
+
+@keyframes shimmerSlide {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ===================== */
+/* TOOLTIP UTILITY       */
+/* ===================== */
+.tooltip-wrapper {
+  position: relative;
+}
+
+.tooltip-wrapper .tooltip-label {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 100;
+}
+
+.tooltip-wrapper:hover .tooltip-label {
+  opacity: 1;
+}
+
+/* ===================== */
+/* TOUCH DEVICE FIXES    */
+/* ===================== */
+
+/* Disable hover-only effects on touch screens */
+@media (hover: none) and (pointer: coarse) {
+  .neon-hover:hover {
+    box-shadow: none;
+    border-color: inherit !important;
+  }
+
+  .neon-border-spin:hover::after {
+    opacity: 0;
+  }
+
+  /* Tooltips: show on tap via :focus-within fallback */
+  .tooltip-wrapper:focus-within .tooltip-label {
+    opacity: 1;
+  }
+}
+
+/* Safe area insets for iPhone X+ notch / home bar */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .fixed-bottom-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+@media print {
+  .no-print,
+  nav,
+  footer,
+  [class*="fixed"],
+  [class*="sticky"] {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .glass-card {
+    background: white !important;
+    border: 1px solid #ccc !important;
+    backdrop-filter: none !important;
+  }
+
+  * {
+    -webkit-text-fill-color: initial !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+}

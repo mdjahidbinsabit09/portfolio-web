@@ -1,0 +1,18 @@
+export const personalData = {
+  name: "MD JAHID BIN SABIT",
+  profile: '/profile.jpg',
+  designation: "WordPress & Full Stack Developer",
+  description: "My name is MD Jahid Bin Sabit. I'm a professional WordPress and Full-Stack Developer with strong experience in building high-performance websites, custom plugins, and scalable web applications. I focus on clean code, modern UI/UX, and delivering fast, secure, and user-friendly digital solutions. I am available for any kind of job opportunity that suits my skills and interests.",
+  email: 'mail@jbsabit.com',
+  phone: '+8801939925649',
+  address: 'Kushtia Sadar, Bangladesh - 7000 ',
+  github: 'https://github.com/mdjahidbinsabit09',
+  facebook: 'https://www.facebook.com/xahidbxabit99',
+  linkedIn: 'https://bd.linkedin.com/in/md-jahid-bin-sabit-b30a50220',
+  twitter: 'https://twitter.com/',
+  stackOverflow: 'https://stackoverflow.com/users/mdjaidbinsabit',
+  leetcode: "https://leetcode.com/mdjahidbinsabit",
+  devUsername: "mdjahidbinsabit",
+  resume: "https://drive.google.com/uc?export=download&id=1y3tDuvkVIXG4CrJiMPzDUkVyI4_CljKf",
+  available: true,
+};
